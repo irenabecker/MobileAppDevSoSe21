@@ -24,52 +24,6 @@ public class RouterEmptyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    /*    new isWebAPIAvailableHelper(this).execute();
-        finish();
-    }
-
-    private static class isWebAPIAvailableHelper extends AsyncTask<Void, Void, Boolean> {
-
-        private WeakReference<RouterEmptyActivity> activityReference;
-
-        isWebAPIAvailableHelper(RouterEmptyActivity activity) {
-            activityReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            try {
-                HttpURLConnection c = (HttpURLConnection) new URL(ServiceFactory.BASE_URL).openConnection();
-                c.setReadTimeout(1000);
-                c.setConnectTimeout(1000);
-                c.setRequestMethod("GET");
-                c.setDoInput(true);
-                c.connect();
-                return true;
-            } catch (IOException e) {
-                Log.i(TAG, "Web API is offline, therefore no login is necessary.");
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            Intent intent;
-            RouterEmptyActivity activity = activityReference.get();
-            if (result) {
-                intent = new Intent(activityReference.get(), LoginActivity.class);
-            } else {
-                intent = new Intent(activityReference.get(), OverviewActivity.class);
-
-
-                intent.putExtra(INTENT_IS_WEB_API_ACCESSIBLE, false);
-            }
-            activity.startActivity(intent);
-        }
-    }
-
-   */
 
         Toast.makeText(this, "Checking connectivity...", Toast.LENGTH_SHORT);
         Future<Boolean> connectivityFuture = checkConnectivityAsync();
@@ -81,17 +35,14 @@ public class RouterEmptyActivity extends Activity {
 
                 intent = new Intent(this, LoginActivity.class);
 
-               // this.crudOperations = new RetrofitRemoteDataItemCRUDOperationsImpl();
             } else {
                 Toast.makeText(this, "Backend not accessible", Toast.LENGTH_SHORT).show();
-              //  this.crudOperations = new RoomDataItemCRUDOperationsImpl(this);
 
                 intent = new Intent(this, OverviewActivity.class);
             }
         }
         catch(Exception e){
             Toast.makeText(this, "Got exception: " + e, Toast.LENGTH_SHORT).show();
-           // this.crudOperations = new RoomDataItemCRUDOperationsImpl(this);
             intent = new Intent(this, OverviewActivity.class);
         }
         Toast.makeText(this, "Application started...", Toast.LENGTH_SHORT).show();
@@ -134,9 +85,7 @@ public class RouterEmptyActivity extends Activity {
             }
         }
 
-
     }
-
 
 
 }
